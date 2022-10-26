@@ -80,15 +80,18 @@ linux {
         message("Windows build")
         CONFIG += WindowsBuild
         DEFINES += __STDC_LIMIT_MACROS
+        DEFINES += _CRT_SECURE_NO_WARNINGS
         DEFINES += QGC_GST_TAISYNC_ENABLED
-        DEFINES += QGC_GST_MICROHARD_ENABLED 
+        DEFINES += QGC_GST_MICROHARD_ENABLED
         QMAKE_CFLAGS -= -Zc:strictStrings
         QMAKE_CFLAGS_RELEASE -= -Zc:strictStrings
         QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
         QMAKE_CXXFLAGS -= -Zc:strictStrings
         QMAKE_CXXFLAGS_RELEASE -= -Zc:strictStrings
         QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
-        QMAKE_CXXFLAGS_WARN_ON += /WX /W3 \
+        # QMAKE_CXXFLAGS_WARN_ON += /WX /W3 \
+        QMAKE_CXXFLAGS_WARN_ON += /W3 \
+            /wd4819 \   #
             /wd4005 \   # silence warnings about macro redefinition, these come from the shapefile code with is external
             /wd4290 \   # ignore exception specifications
             /wd4267 \   # silence conversion from 'size_t' to 'int', possible loss of data, these come from gps drivers shared with px4
